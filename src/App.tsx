@@ -1,26 +1,25 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import "./App.less";
+import "@fontsource/roboto/300.css";
+import "@fontsource/roboto/400.css";
+import "@fontsource/roboto/500.css";
+import "@fontsource/roboto/700.css";
+import "@fontsource/nunito/300.css";
+import "@fontsource/nunito/400.css";
+import "@fontsource/nunito/500.css";
+import "@fontsource/nunito/700.css";
+
+import Test from "./modules/test/test";
+import SignIn from "./modules/sign-in/SignIn";
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    return (
+        <div className="App">
+            <header className="App-header">
+                {/* <Test></Test> */}
+                <SignIn></SignIn>
+            </header>
+        </div>
+    );
 }
 
 export default App;
