@@ -1,25 +1,23 @@
-import "./App.less";
-import "@fontsource/roboto/300.css";
-import "@fontsource/roboto/400.css";
-import "@fontsource/roboto/500.css";
-import "@fontsource/roboto/700.css";
-import "@fontsource/nunito/300.css";
-import "@fontsource/nunito/400.css";
-import "@fontsource/nunito/500.css";
-import "@fontsource/nunito/700.css";
+import './App.less'
+import { Outlet, useLoaderData } from 'react-router-dom'
 
-import Test from "./modules/test/test";
-import SignIn from "./modules/sign-in/SignIn";
+import '@fontsource/roboto/300.css'
+import '@fontsource/roboto/400.css'
+import '@fontsource/roboto/500.css'
+import '@fontsource/roboto/700.css'
+import '@fontsource/nunito/300.css'
+import '@fontsource/nunito/400.css'
+import '@fontsource/nunito/500.css'
+import '@fontsource/nunito/700.css'
 
 function App() {
+    const data = useLoaderData()
+    console.log(data)
     return (
         <div className="App">
-            <header className="App-header">
-                {/* <Test></Test> */}
-                <SignIn></SignIn>
-            </header>
+            <Outlet />
         </div>
-    );
+    )
 }
 
-export default App;
+export default App
