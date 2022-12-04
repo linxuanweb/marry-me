@@ -1,4 +1,4 @@
-import * as React from 'react'
+import * as React from 'react';
 import {
     Link,
     Grid,
@@ -12,18 +12,18 @@ import {
     Container,
     Avatar,
     Alert as MuiAlert,
-} from '@mui/material'
+} from '@mui/material';
 
-import LoadingButton from '@mui/lab/LoadingButton'
+import LoadingButton from '@mui/lab/LoadingButton';
 
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined'
+import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 
-import { createTheme, ThemeProvider } from '@mui/material/styles'
+import { createTheme, ThemeProvider } from '@mui/material/styles';
 
-import firebaseApp from '../../firebase'
-import { getAuth, signInWithEmailAndPassword } from 'firebase/auth'
-
-const auth = getAuth(firebaseApp)
+import firebaseApp from '../../firebase';
+import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
+import { Link as RouterLink } from 'react-router-dom';
+const auth = getAuth(firebaseApp);
 
 function Copyright(props: any) {
     return (
@@ -40,39 +40,39 @@ function Copyright(props: any) {
             {new Date().getFullYear()}
             {'.'}
         </Typography>
-    )
+    );
 }
 
-const theme = createTheme()
+const theme = createTheme();
 
 export default function SignIn() {
-    const [email, setEmail] = React.useState('')
-    const [password, setPassword] = React.useState('')
-    const [submitting, setSubmitting] = React.useState(false)
-    const [open, setOpen] = React.useState(false)
+    const [email, setEmail] = React.useState('');
+    const [password, setPassword] = React.useState('');
+    const [submitting, setSubmitting] = React.useState(false);
+    const [open, setOpen] = React.useState(false);
 
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-        event.preventDefault()
-        setEmail(event.currentTarget.email.value)
-        setPassword(event.currentTarget.password.value)
-        setSubmitting(true)
+        event.preventDefault();
+        setEmail(event.currentTarget.email.value);
+        setPassword(event.currentTarget.password.value);
+        setSubmitting(true);
 
         signInWithEmailAndPassword(auth, email, password)
             .then((userCredential) => {
                 // Signed in
-                const user = userCredential.user
+                const user = userCredential.user;
                 // ...
             })
             .catch((error) => {
-                const errorCode = error.code
-                const errorMessage = error.message
-                console.log(errorCode, errorMessage)
-                setOpen(true)
+                const errorCode = error.code;
+                const errorMessage = error.message;
+                console.log(errorCode, errorMessage);
+                setOpen(true);
             })
-            .finally(() => setSubmitting(false))
-    }
+            .finally(() => setSubmitting(false));
+    };
 
-    const handleClose = () => setOpen(false)
+    const handleClose = () => setOpen(false);
 
     return (
         <ThemeProvider theme={theme}>
@@ -150,7 +150,11 @@ export default function SignIn() {
                                 </Link>
                             </Grid>
                             <Grid item>
-                                <Link href="#" variant="body2">
+                                <Link
+                                    component={RouterLink}
+                                    to="/sign-up"
+                                    variant="body2"
+                                >
                                     {'没有账号? 注册'}
                                 </Link>
                             </Grid>
@@ -160,5 +164,5 @@ export default function SignIn() {
                 <Copyright sx={{ mt: 8, mb: 4 }} />
             </Container>
         </ThemeProvider>
-    )
+    );
 }
