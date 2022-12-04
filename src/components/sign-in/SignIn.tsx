@@ -1,19 +1,29 @@
 import * as React from 'react'
-import Avatar from '@mui/material/Avatar'
-import Button from '@mui/material/Button'
-import CssBaseline from '@mui/material/CssBaseline'
-import TextField from '@mui/material/TextField'
-import FormControlLabel from '@mui/material/FormControlLabel'
-import Checkbox from '@mui/material/Checkbox'
-import Link from '@mui/material/Link'
-import Grid from '@mui/material/Grid'
-import Box from '@mui/material/Box'
+import {
+    Link,
+    Grid,
+    Box,
+    Checkbox,
+    FormControlLabel,
+    TextField,
+    CssBaseline,
+    Snackbar,
+    Typography,
+    Container,
+    Avatar,
+    Alert as MuiAlert,
+} from '@mui/material'
+
+import LoadingButton from '@mui/lab/LoadingButton'
+
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined'
-import Typography from '@mui/material/Typography'
-import Container from '@mui/material/Container'
+
 import { createTheme, ThemeProvider } from '@mui/material/styles'
 
-import { useParams, useSearchParams } from 'react-router-dom'
+import firebaseApp from '../../firebase'
+import { getAuth, signInWithEmailAndPassword } from 'firebase/auth'
+
+const auth = getAuth(firebaseApp)
 
 function Copyright(props: any) {
     return (
@@ -36,21 +46,46 @@ function Copyright(props: any) {
 const theme = createTheme()
 
 export default function SignIn() {
-    const params = useParams()
-    const [searchParams] = useSearchParams()
-    console.log(params, searchParams.keys())
+    const [email, setEmail] = React.useState('')
+    const [password, setPassword] = React.useState('')
+    const [submitting, setSubmitting] = React.useState(false)
+    const [open, setOpen] = React.useState(false)
 
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault()
-        const data = new FormData(event.currentTarget)
-        console.log({
-            email: data.get('email'),
-            password: data.get('password'),
-        })
+        setEmail(event.currentTarget.email.value)
+        setPassword(event.currentTarget.password.value)
+        setSubmitting(true)
+
+        signInWithEmailAndPassword(auth, email, password)
+            .then((userCredential) => {
+                // Signed in
+                const user = userCredential.user
+                // ...
+            })
+            .catch((error) => {
+                const errorCode = error.code
+                const errorMessage = error.message
+                console.log(errorCode, errorMessage)
+                setOpen(true)
+            })
+            .finally(() => setSubmitting(false))
     }
+
+    const handleClose = () => setOpen(false)
 
     return (
         <ThemeProvider theme={theme}>
+            <Snackbar
+                open={open}
+                autoHideDuration={3000}
+                onClose={handleClose}
+                anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+            >
+                <MuiAlert elevation={6} variant="filled" severity="error">
+                    Invalid email or password
+                </MuiAlert>
+            </Snackbar>
             <Container component="main" maxWidth="xs">
                 <CssBaseline />
                 <Box
@@ -99,14 +134,15 @@ export default function SignIn() {
                             }
                             label="记住我"
                         />
-                        <Button
+                        <LoadingButton
                             type="submit"
                             fullWidth
                             variant="contained"
                             sx={{ mt: 3, mb: 2 }}
+                            loading={submitting}
                         >
                             登录
-                        </Button>
+                        </LoadingButton>
                         <Grid container>
                             <Grid item xs>
                                 <Link href="#" variant="body2">
