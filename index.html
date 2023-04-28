@@ -8,26 +8,42 @@
     </head>
     <body>
         <button id="postMessage">Post Message</button>
+        <button id="postMessage2">Post Empty Message</button>
+
         <div></div>
         <iframe
             id="iframe"
-            src="https://nft-mpc-test.lifo.ai/public/mocaverse-campaign-challenge/797"
+            src="https:nft-mpc-test.lifo.ai/public/mocaverse-campaign-challenge/844"
             style="width: 800px; height: 1000px"
         ></iframe>
 
         <script>
-            const iframe = document.querySelector("#iframe");
-            const postMessageBtn = document.querySelector("#postMessage");
+            const iframe = document.querySelector('#iframe');
+            const postMessageBtn = document.querySelector('#postMessage');
+            const postMessage2Btn = document.querySelector('#postMessage2');
             postMessageBtn.onclick = function () {
                 iframe.contentWindow.postMessage(
                     {
-                        type: "w3wWalletAddressUpdate",
+                        type: 'w3wWalletAddressUpdate',
                         data: {
                             walletAddress:
-                                "0xa17E5A7b46877D3cD9d366dF8Abdf489a1B0E349",
+                                '0x71d887e4c7da1c723a23858010d3b80df2260a65',
+                            walletType: 'meta_mask',
                         },
                     },
-                    "*"
+                    '*'
+                );
+            };
+            postMessage2Btn.onclick = function () {
+                iframe.contentWindow.postMessage(
+                    {
+                        type: 'w3wWalletAddressUpdate',
+                        data: {
+                            walletAddress: null,
+                            walletType: null,
+                        },
+                    },
+                    '*'
                 );
             };
         </script>
