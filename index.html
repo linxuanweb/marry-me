@@ -86,7 +86,7 @@
                         data: {
                             walletAddress,
                             walletType: 'meta_mask',
-                            link: window.location.href,
+                            href: window.location.href,
                         },
                     },
                     '*'
@@ -104,21 +104,6 @@
                     '*'
                 );
             };
-
-            // listen iframe event
-            window.addEventListener('message', function (event) {
-                if (event.data.type === 'w3wPageLoaded') {
-                    iframe.contentWindow.postMessage(
-                        {
-                            type: 'w3wParentLinkUpdate',
-                            data: {
-                                link: window.location.href,
-                            },
-                        },
-                        '*'
-                    );
-                }
-            });
         </script>
     </body>
 </html>
