@@ -20,7 +20,7 @@
 
         <style>
             body {
-                padding: 0;
+                padding: 0 50px;
                 margin: 50px auto;
                 max-width: 1000px;
                 display: flex;
@@ -44,6 +44,19 @@
             .iframe-box iframe {
                 width: 100%;
                 overflow: hidden;
+            }
+
+            /* Media Query */
+            @media only screen and (max-width: 768px) {
+                body {
+                    background-color: #fff;
+                    padding: 0;
+                    color: #000;
+                }
+
+                .iframe-box {
+                    padding: 0;
+                }
             }
         </style>
     </head>
