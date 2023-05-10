@@ -118,9 +118,9 @@
             const postMessage2Btn = document.querySelector('#postMessage2');
 
             // Set src by campaignID
-            iframe.src = `https://nft-mpc-test.lifo.ai/public/mocaverse-campaign-challenge/${localStorage.getItem(
-                'campaignId'
-            )}`;
+            iframe.src = `https://nft-mpc-test.lifo.ai/public/mocaverse-campaign-challenge/${
+                localStorage.getItem('campaignId') || '848'
+            }`;
 
             postMessageBtn.onclick = function () {
                 const walletAddress =
@@ -155,7 +155,7 @@
             const emptyCampaignIdBtn =
                 document.querySelector('#emptyCampaignId');
 
-            campaignInput.value = localStorage.getItem('campaignId');
+            campaignInput.value = localStorage.getItem('campaignId') || '848';
 
             postCampaignIdBtn.onclick = function () {
                 const campaignId = campaignInput.value;
