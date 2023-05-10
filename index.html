@@ -62,9 +62,27 @@
     </head>
     <body>
         <div class="mb-3">
-            <label for="exampleFormControlInput1" class="form-label"
-                >Email address</label
-            >
+            <label class="form-label">Campaign ID</label>
+            <input
+                type="text"
+                class="form-control"
+                id="campaignId"
+                placeholder="Campaign ID"
+            />
+        </div>
+
+        <div class="mb-3">
+            <button id="postCampaignId" type="button" class="btn btn-primary">
+                Update CampaignID
+            </button>
+
+            <button id="emptyCampaignId" type="button" class="btn btn-primary">
+                Clear Stored CampaignID
+            </button>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label"> Email address </label>
             <input
                 type="email"
                 class="form-control"
@@ -99,6 +117,11 @@
             const postMessageBtn = document.querySelector('#postMessage');
             const postMessage2Btn = document.querySelector('#postMessage2');
 
+            // Set src by campaignID
+            iframe.src = `https://nft-mpc-test.lifo.ai/public/mocaverse-campaign-challenge/${localStorage.getItem(
+                'campaignId'
+            )}`;
+
             postMessageBtn.onclick = function () {
                 const walletAddress =
                     document.querySelector('#addressInput').value;
@@ -125,6 +148,24 @@
                     },
                     '*'
                 );
+            };
+
+            const campaignInput = document.querySelector('#campaignId');
+            const postCampaignIdBtn = document.querySelector('#postCampaignId');
+            const emptyCampaignIdBtn =
+                document.querySelector('#emptyCampaignId');
+
+            campaignInput.value = localStorage.getItem('campaignId');
+
+            postCampaignIdBtn.onclick = function () {
+                const campaignId = campaignInput.value;
+                localStorage.setItem('campaignId', campaignId);
+                window.location.reload();
+            };
+
+            emptyCampaignIdBtn.onclick = function () {
+                localStorage.setItem('campaignId', '848');
+                window.location.reload();
             };
 
             // Add message listener for iframe
